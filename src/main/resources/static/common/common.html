@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="common_head(title,links,styles)">
+    <meta charset="UTF-8">
+    <title th:replace="${title}">Title</title>
+    <link th:rel="stylesheet" th:href="@{/layui/css/layui.css}" />
+    <th:block th:replace="${links}" />
+    <th:block th:replace="${styles}" />
+</head>
+<body>
+<div th:fragment="common_footer">
+    <script th:src="@{/js/jquery3.4.0.js}"></script>
+    <script th:src="@{/layui/layui.js}" ></script>
+    <script th:inline="javascript">
+        window.contextPath = [[${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':' + #request.getServerPort()  + #request.getContextPath() + '/'}]]
+    </script>
+</div>
+</body>
+</html>

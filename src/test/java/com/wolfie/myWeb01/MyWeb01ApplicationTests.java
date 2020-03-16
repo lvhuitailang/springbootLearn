@@ -1,0 +1,15 @@
+package com.wolfie.myWeb01;
+/*
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class MyWeb01ApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
+*/

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wolfie.myWeb01.mapper.user.UserMapper">
+    <select id="findUserById" parameterType="String" resultType="com.wolfie.myWeb01.domin.user.User">
+        select * from user where id=#{id}
+    </select>
+
+    <select id="findAll" resultType="com.wolfie.myWeb01.domin.user.User">
+        select * from user
+    </select>
+
+
+    <select id="findUserCustomByUsername" parameterType="String" resultType="com.wolfie.myWeb01.domin.user.UserCustom">
+        select
+        u.id,
+        u.username,
+        u.password
+
+        from user u
+        where u.username = #{username}
+    </select>
+    
+    <resultMap id="userCustomResultMap" type="com.wolfie.myWeb01.domin.user.UserCustom">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <association property="userInfo" javaType="com.wolfie.myWeb01.domin.user.UserInfo">
+            <id column="userInfoId" property="id"/>
+            <result column="userId" property="userId"/>
+            <result column="name" property="name"/>
+            <result column="gender" property="gender"/>
+            <result column="age" property="age"/>
+            <result column="birthday" property="birthday"/>
+        </association>
+    </resultMap>
+    
+    <select id="findUserDetailById" parameterType="String" resultMap="userCustomResultMap">
+        select
+        u.id,
+        u.username,
+
+        ui.id as userInfoId,
+        ui.userId,
+        ui.name,
+        ui.gender,
+        ui.age,
+        ui.birthday
+
+        from user u,userInfo ui
+
+        where u.id = ui.userId
+        and u.id=#{id}
+
+
+    </select>
+    
+    
+    
+    
+   <resultMap id="userCustomResultMap2" type="com.wolfie.myWeb01.domin.user.UserCustom" extends="userCustomResultMap">
+       
+       <collection property="roleList" ofType="com.wolfie.myWeb01.domin.user.Role">
+           <id column="roleId" property="id"/>
+           <result column="rolename" property="rolename"/>
+       </collection>
+   </resultMap>
+
+
+    <select id="findUserDetailById2" parameterType="String" resultMap="userCustomResultMap2">
+        select
+        u.id,
+        u.username,
+        ui.id as userInfoId,
+        ui.userId,
+        ui.name,
+        ui.gender,
+        ui.age,
+        ui.birthday,
+        r.id as roleId,
+        r.rolename
+
+        from  user u
+        left join userrole ur on u.id = ur.userId
+        left join  role  r  on ur.roleId = r.id
+        left  join userinfo ui on u.id = ui.userId
+
+        where u.id=#{id}
+
+    </select>
+    
+    <resultMap id="userRoleAndPermissionResultMap" type="com.wolfie.myWeb01.domin.user.UserCustom" extends="userCustomResultMap">
+        <collection property="roleList" ofType="com.wolfie.myWeb01.domin.user.Role">
+            <id column="roleId" property="id"/>
+            <result column="rolename" property="rolename"/>
+        </collection>
+
+        <collection property="permissionList" ofType="com.wolfie.myWeb01.domin.user.Permission">
+            <id column="permissionId" property="id"/>
+            <result column="permissionName" property="permissionName"/>
+        </collection>
+    </resultMap>
+
+    <select id="userRoleAndPermission" parameterType="String" resultMap="userRoleAndPermissionResultMap">
+        select
+        u.id,
+        u.username,
+        ui.id as userInfoId,
+        ui.userId,
+        ui.name,
+        ui.gender,
+        ui.age,
+        ui.birthday,
+        r.id as roleId,
+        r.rolename
+
+        from  user u
+        left join userrole ur on u.id = ur.userId
+        left join  role  r  on ur.roleId = r.id
+        left join rolepermission rp on rp.roleId = r.id
+        left join permisston p on p.id = rp.permissionId
+        left  join userinfo ui on u.id = ui.userId
+
+        where u.username=#{username}
+
+    </select>
+
+
+    
+    
+</mapper>
