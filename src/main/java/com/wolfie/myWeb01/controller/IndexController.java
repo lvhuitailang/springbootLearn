@@ -11,4 +11,9 @@ public class IndexController {
     public String index(){
         return "index";
     }
+    @RequestMapping("/index//body/frame")
+    public String index_main_body_frame(){
+        return "index_main_body_frame";
+
+    }
 }
