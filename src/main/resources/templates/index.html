@@ -1,46 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="../static/common/common::common_head(~{::title},~{},~{::style})">
+<head th:replace="../static/common/common::common_head(~{::title},~{::link},~{::style})">
     <title>Index</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
     <style>
-        html,body{
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 0;
-            min-height: 100%;
-        }
-        .header,.main_body,.footer{
-            border: 1px solid red;
-        }
-        .container{
-            display: flex;
-            flex-direction: column;
-            box-sizing: border-box;
-            width: 100%;
-            height: 100%;
-            padding: 10px 30px;
-        }
-        .header{
-            height: 100px;
-            min-height: 100px;
-        }
-        .footer{
-            height: 50px;
-            min-height: 50px;
-        }
-        .main_body{
-            flex-grow: 1;
-            /*隐藏下层滚动条*/
-            overflow: hidden;
-        }
-        /*隐藏滚动条*/
-        #index_main_body_frame{
-            height: calc( 100% + 30px );
-            width: calc( 100% + 30px );
-            padding: 20px calc( 20px + 30px )  calc( 20px + 30px ) 20px;
-        }
-
     </style>
 </head>
 <body>
