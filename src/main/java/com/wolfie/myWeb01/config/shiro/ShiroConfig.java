@@ -108,7 +108,7 @@ public class ShiroConfig {
         RedisManager redisManager = new RedisManager();
         redisManager.setHost("127.0.0.1:6379");
 //        redisManager.setPort(6379); //新的好像整合到上面的host里面了
-        redisManager.setPassword("123456");
+        redisManager.setPassword("Hyrj@123456");
         return redisManager;
     }
 
